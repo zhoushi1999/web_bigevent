@@ -22,8 +22,10 @@ $(".layui-form").on("submit", (e) => {
     success: (res) => {
       if (res.status !== 0) return layer.msg("更新密码失败！");
       layer.msg("更新密码成功！");
-      // 重置表单
-      $(".layui-form")[0].reset();
+      // // 重置表单
+      // $(".layui-form")[0].reset();
+      localStorage.removeItem('token')
+      window.parent.location.href ="/login.html"
     },
   });
 });
