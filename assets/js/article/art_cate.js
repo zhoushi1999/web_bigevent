@@ -59,6 +59,10 @@ $("tbody").on("click", ".btn-edit", function () {
     method: "GET",
     url: "/my/article/cates/" + id,
     success: function (res) {
+      if (res.status !== 0) {
+        return layer.msg("更新分类数据失败！");
+      }
+      layer.msg("更新分类数据成功！");
       form.val("form-edit", res.data);
     },
   });
@@ -77,6 +81,7 @@ $("body").on("submit", "#form-edit", function (e) {
       }
       layer.msg("更新分类数据成功！");
       layer.close(indexEdit);
+      // form.val("form-edit", res.data);
       initArtCateList();
     },
   });
@@ -87,17 +92,51 @@ $("tbody").on("click", ".btn-delete", function () {
   const id = $(this).attr("data-id");
   // 提示用户是否删除
   layer.confirm("确定删除吗？", { icon: 3, title: "提示" }, function (index) {
-    $.ajax({
-      method: "GET",
-      url: "/my/article/deletecate/" + id,
-      success: function (res) {
-        if (res.status !== 0) {
-          return layer.msg("删除分类失败！");
-        }
-        layer.msg("删除分类成功！");
-        layer.close(index);
-        initArtCateList();
-      },
-    });
+      $.ajax({
+          method: "GET",
+          url: "/my/article/deletecate/" + id,
+          success: function (res) {
+              if (res.status !== 0) {
+                  return layer.msg("删除分类失败！");
+              }
+              layer.msg("删除分类成功！");
+              layer.close(index);
+              initArtCateList();
+          },
+      });
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 删除文章分类
+// $("tbody").on("click", ".btn-delete", function () {
+//   const id = $(this).attr("data-id");
+//   // 提示用户是否删除
+//   layer.confirm("确定删除吗？", { icon: 3, title: "提示" }, function (index) {
+//     $.ajax({
+//       method: "GET",
+//       url: "/my/article/deletecate/" + id,
+//       success: function (res) {
+//         if (res.status !== 0) {
+//           return layer.msg("删除分类失败！");
+//         }
+//         layer.msg("删除分类成功！");
+//         layer.close(index);
+//         initArtCateList();
+//       },
+//     });
+//   });
+// });
